@@ -1,0 +1,46 @@
+.bigbox {
+  background-color: #ffffff;
+  width: 1200px;
+  height: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 70px;
+  border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
+}
+.smallbox {
+  background-color: #ffffff;
+  width: 1100px;
+  height: 600px;
+  border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
+}
+.boxform {
+  background-color: #ffffff;
+  width: 500px;
+  height: 600px;
+  border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
+  float: right;
+  display: flex;
+  justify-content: center;
+}
+.boximage {
+  background-color: #ffffff;
+  width: 600px;
+  height: 600px;
+  border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
+  float: right;
+}
+.imagelogin {
+  width: 600px;
+  height: 600px;
+}
+.formlogin {
+  width: 600px;
+  height: 600px;
+  margin-top: 150px;
+  text-align: center;
+}
+.buttonLogin {
+}
