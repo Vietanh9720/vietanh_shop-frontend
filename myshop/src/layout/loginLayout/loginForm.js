@@ -1,60 +1,127 @@
-import { Formik, FastField, Form } from "formik";
-import * as Yup from "yup";
-import React, { useState } from "react";
+import { Input, Button, FormGroup, Row, Col } from "reactstrap";
+import React, { useEffect, useState, useRef } from "react";
 import { ReactstrapInput } from "reactstrap-formik";
-import { Card, FormGroup, CardBody, Button, CardTitle } from "reactstrap";
 import style from "../../cssmodule/Login.module.css";
-const LoginForm = (props) => {
+import { toast } from "react-toastify";
+import * as Yup from "yup";
+import { Formik, FastField, Form,Field } from "formik";
+import "react-toastify/dist/ReactToastify.css";
+import ToastCustom from "../../component/ToastCustom";
+import Regex from "../../constant/Regex";
+import { Eye, EyeOff } from "react-feather";
+const LoginForm = () => {
+  const [showEye, setShowEye] = useState(false);
+  const [showPassword, setShowPassword] = useState("password");
+  const redirectafterLogin = () => {
+    window.location.href = "/";
+  };
   return (
-    <div className={style.formlogin}>
-        
-      <Formik
-        initialValues={{
-          username: "",
-          password: "",
-        }}
-        validationSchema={Yup.object({
-          username: Yup.string().required("Không được để trống !"),
-          password: Yup.string().required("Không được để trống !"),
-        })}
-        onSubmit={async (values, { setFieldError }) => {}}
-        validateOnChange={true}
-        validateOnBlur={true}
-      >
-        {({ isSubmitting }) => (
-          <Card>
-            <CardBody>
-              <div>
-                <Form>
-                  <FormGroup>
-                    
-                    <FastField
-                      bsSize="sm"
-                      type="text"
-                      name="username"
-                      placeholder="Email"
-                      component={ReactstrapInput}
-                    />
-                  </FormGroup>
-                  <FormGroup>
-                    <FastField
-                      bsSize="sm"
-                      type="password"
-                      name="password"
-                      placeholder="Password"
-                      component={ReactstrapInput}
-                    />
-                  </FormGroup>
-                  <Button color="primary" size="mg" type="submit" className={style.buttonLogin}>
-                    Đăng nhập
-                  </Button>{" "}<br></br><br></br><i style={{fontSize:'13px'}} >Chưa có tài khoản, Đăng ký ngay </i>
-                </Form>
-              </div>
-            </CardBody>
-          </Card>
-        )}
-      </Formik>
-    </div>
+    <Formik
+      initialValues={{
+        email: "",
+        password: "",
+      }}
+      validationSchema={Yup.object({
+        email: Yup.string()
+          .required("Không được để trống !")
+          .test("checkvalidemail", "Email invalid!", (email) => {
+            if (Regex.EMAIL_REGEX.test(email)) {
+              return true;
+            } else {
+              return false;
+            }
+          }),
+        password: Yup.string()
+          .required("Không được để trống !")
+          .test("checkvalidpassword", "Password invalid!", (password) => {
+            if (Regex.PASSWORD_REGEX.test(password)) {
+              return true;
+            } else {
+              return false;
+            }
+          }),
+      })}
+      onSubmit={async (values, { setFieldError }) => {
+        console.log(values.email + values.password);
+        redirectafterLogin();
+      }}
+      validateOnChange={false}
+      validateOnBlur={false}
+    >
+      <div className={style.formlogin}>
+        <Form>
+          <FormGroup>
+            <FastField
+              size="lg"
+              type="email"
+              name="email"
+              placeholder="Email"
+              component={ReactstrapInput}
+            ></FastField>
+          </FormGroup>
+          <Row>
+            <Col md={11}>
+              <FormGroup>
+                <Field
+                  style={{ marginRight: "-10px" }}
+                  placeholder="Mật khẩu"
+                  type={showPassword}
+                  size="lg"
+                  name="password"
+                  component={ReactstrapInput}
+                ></Field >
+              </FormGroup>
+            </Col>
+            {(showEye) ? (
+              <Col md={1}>
+                <div className={style.showhidePassword}>
+                  <Eye
+                    style={{ marginTop: "10px" }}
+                    onClick={() => {setShowPassword("password");setShowEye(false)}}
+                  ></Eye>
+                </div>
+              </Col>
+            ) : (
+              <Col md={1}>
+                <div className={style.showhidePassword}>
+                  <EyeOff style={{ marginTop: "10px" }}onClick={()=>{setShowPassword("text");setShowEye(true)}}></EyeOff>
+                </div>
+              </Col>
+            )}
+          </Row>
+          <br></br>
+
+          <Button
+            size="lg"
+            style={{ width: "300px", marginBottom: "7px" }}
+            color="primary"
+          >
+            {" "}
+            Đăng nhập
+          </Button>
+          <br></br>
+          <a href="/">Quên mật khẩu ?</a>
+          <div
+            style={{
+              backgroundColor: "gray",
+              height: "1px",
+              marginTop: "50px",
+            }}
+          ></div>
+          <br></br>
+          <Button
+            size="lg"
+            style={{ width: "200px", marginBottom: "7px" }}
+            color="success"
+            onClick={redirectafterLogin}
+          >
+            {" "}
+            Tạo tài khoản mới
+          </Button>
+        </Form>
+        <ToastCustom></ToastCustom>
+      </div>
+    </Formik>
   );
 };
 export default LoginForm;
