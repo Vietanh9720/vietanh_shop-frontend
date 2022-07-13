@@ -29,7 +29,7 @@ const LoginForm = (props) => {
                   <FormGroup>
                     
                     <FastField
-                      bsSize="lg"
+                      bsSize="sm"
                       type="text"
                       name="username"
                       placeholder="Email"
@@ -38,7 +38,7 @@ const LoginForm = (props) => {
                   </FormGroup>
                   <FormGroup>
                     <FastField
-                      bsSize="lg"
+                      bsSize="sm"
                       type="password"
                       name="password"
                       placeholder="Password"
@@ -47,7 +47,7 @@ const LoginForm = (props) => {
                   </FormGroup>
                   <Button color="primary" size="mg" type="submit" className={style.buttonLogin}>
                     Đăng nhập
-                  </Button>{" "}<br></br><i style={{fontSize:'13px'}} >Chưa có tài khoản, Đăng ký ngay </i>
+                  </Button>{" "}<br></br><br></br><i style={{fontSize:'13px'}} >Chưa có tài khoản, Đăng ký ngay </i>
                 </Form>
               </div>
             </CardBody>
